@@ -13,7 +13,6 @@ import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,8 +21,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val navigationView = findViewById<NavigationView>(R.id.navigationView)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDefaultDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        actionBar?.run {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeButtonEnabled(true)
+        }
         val toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -38,19 +39,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            R.id.profile -> Toast.makeText(
+            R.id.favourites -> Toast.makeText(
                 this@MainActivity,
-                "Profile Selected",
+                "Favourites Selected",
                 Toast.LENGTH_SHORT
             ).show()
-            R.id.contact -> Toast.makeText(
+            R.id.list -> Toast.makeText(
                 this@MainActivity,
-                "Contact us Selected",
-                Toast.LENGTH_SHORT
-            ).show()
-            R.id.about -> Toast.makeText(
-                this@MainActivity,
-                "About us Selected",
+                "List Selected",
                 Toast.LENGTH_SHORT
             ).show()
             R.id.logout -> Toast.makeText(

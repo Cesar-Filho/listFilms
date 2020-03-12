@@ -2,4 +2,7 @@
     <string name="app_name">List Films</string>
     <string name="drawerOpen">drawerOpen</string>
     <string name="drawerClose">drawerClose</string>
+    <string name="films_favourites">Filmes Favoritos</string>
+    <string name="list_films">Lista de filmes</string>
+    <string name="logout">Sair</string>
 </resources>
