@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportFragmentManager.beginTransaction().add(R.id.main, ListFragment()).commit()
+
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val navigationView = findViewById<NavigationView>(R.id.navigationView)

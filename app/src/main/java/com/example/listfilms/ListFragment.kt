@@ -1,30 +1,41 @@
 package com.example.listfilms
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.listfilms.lists.GradeListAdapter
 import com.example.listfilms.model.Grade
 
-class ListActivity : AppCompatActivity() {
+class ListFragment : Fragment() {
+    private lateinit var recyclerView: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list)
-        val list = findViewById<RecyclerView>(R.id.list_movies)
-        val grades = fetchGrades().map { Grade(it.name + "a", it.imagePath) }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val v = inflater.inflate(R.layout.fragment_list, container, false)
+        recyclerView = v.findViewById(R.id.list_movies)
+        recyclerView.layoutManager = LinearLayoutManager(
+            activity,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+        val grades = fetchGrades().map { Grade(it.name, it.imagePath) }
+        recyclerView.adapter = GradeListAdapter(grades)
 
-        list.adapter = GradeListAdapter(grades)
-        list.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+        return v
     }
 
-    private fun fetchGrades(): List<Grade> = listOf(
+    private fun fetchGrades(): Array<Grade> = arrayOf(
         Grade(
             "1 ano",
             "https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png"
         ),
-        Grade("2 ano", "http://i.imgur.com/DvpvklR.png"),
+        Grade("2 texto", "https://cdn.pixabay.com/photo/2015/05/08/05/09/mathematics-757566_960_720.jpg"),
         Grade("3 ano", "http://i.imgur.com/DvpvklR.png"),
         Grade("4 ano", "http://i.imgur.com/DvpvklR.png"),
         Grade("5 ano", "http://i.imgur.com/DvpvklR.png"),

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_margin="16dp"
     android:orientation="horizontal"
     app:elevation="10dp">
 
@@ -11,14 +12,14 @@
         android:id="@+id/grade_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="2 ANO"
-        android:layout_gravity="start|center_vertical"
-        />
+        android:layout_gravity="start|center_vertical" />
 
     <ImageView
-        tools:src="@mipmap/ic_launcher"
         android:id="@+id/grade_image"
-        android:layout_gravity="end"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="end|center_vertical"
+        tools:src="@mipmap/ic_launcher" />
+
 </androidx.cardview.widget.CardView>
