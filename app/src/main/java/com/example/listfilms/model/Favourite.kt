@@ -9,7 +9,11 @@ import org.jetbrains.annotations.NotNull
 @Entity(tableName = "favourites")
 data class Favourite(
     @NotNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @SerializedName("id")
+    val id: Int,
+
+    @NotNull
     @SerializedName("email")
     val email: String,
 
