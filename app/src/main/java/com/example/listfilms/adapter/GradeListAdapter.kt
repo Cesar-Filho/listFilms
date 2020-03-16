@@ -1,4 +1,4 @@
-package com.example.listfilms.lists
+package com.example.listfilms.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -26,7 +26,7 @@ class GradeListAdapter(var data: List<Grade>) : RecyclerView.Adapter<GradeViewHo
         Picasso.get()
             .load(currentGrade.imagePath)
             .resize(150, 150)
-            .centerCrop()
+            .centerInside()
             .into(holder.gradeImage)
     }
 

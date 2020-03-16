@@ -5,4 +5,15 @@
     <string name="films_favourites">Filmes Favoritos</string>
     <string name="list_films">Lista de filmes</string>
     <string name="logout">Sair</string>
+    <string name="signIn">Entrar</string>
+    <string name="recovery">Esqueci a senha</string>
+    <string name="signUp">Cadastrar-me</string>
+    <string name="reset">Reiniciar</string>
+    <string name="exit">Sair</string>
+    <string name="send">Enviar</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="insert_email">Digite seu e-mail</string>
+    <string name="register">Register</string>
 </resources>

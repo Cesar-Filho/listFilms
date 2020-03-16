@@ -9,9 +9,9 @@
         android:id="@+id/loginTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="40dp"
         android:gravity="center"
-        android:text="@string/login"
+        android:padding="40dp"
+        android:text="@string/register"
         android:textSize="35sp" />
 
     <EditText
@@ -27,18 +27,6 @@
         android:layout_height="wrap_content"
         android:hint="@string/password"
         android:inputType="textPassword" />
-
-    <Button
-        android:id="@+id/signIn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/signIn" />
-
-    <Button
-        android:id="@+id/recovery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recovery" />
 
     <Button
         android:id="@+id/signUp"

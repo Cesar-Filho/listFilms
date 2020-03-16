@@ -12,21 +12,13 @@
         android:id="@+id/avatar"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:elevation="20dp"
         android:src="@mipmap/ic_launcher_round"
         app:civ_border_color="@color/colorSecondary"
         app:civ_border_width="5dp" />
 
     <TextView
+        android:id="@+id/user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:text="Cesar Filho"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="cesar.pc.filho@gmail.com"
         android:textStyle="bold" />
 </LinearLayout>

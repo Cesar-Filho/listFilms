@@ -1,62 +1,98 @@
 package com.example.listfilms
 
-import android.annotation.SuppressLint
-import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
+import android.os.Bundle
+import android.text.TextUtils
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_main.*
 
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        supportFragmentManager.beginTransaction().add(R.id.main, ListFragment()).commit()
-
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        val navigationView = findViewById<NavigationView>(R.id.navigationView)
-        setSupportActionBar(toolbar)
-        actionBar?.run {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeButtonEnabled(true)
-        }
-        val toggle = ActionBarDrawerToggle(
-            this,
-            drawerLayout,
-            toolbar,
-            R.string.drawerOpen,
-            R.string.drawerClose
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        navigationView.setNavigationItemSelectedListener(this)
+        val email = findViewById<TextView>(R.id.email)
+        val password = findViewById<TextView>(R.id.password)
+        email.text = "cesar.pc.filho@gmail.com"
+        password.text = "123456"
+        signIn.setOnClickListener(this)
+        recovery.setOnClickListener(this)
+        signUp.setOnClickListener(this)
     }
 
-    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        when (menuItem.itemId) {
-            R.id.favourites -> Toast.makeText(
-                this@MainActivity,
-                "Favourites Selected",
-                Toast.LENGTH_SHORT
-            ).show()
-            R.id.list -> Toast.makeText(
-                this@MainActivity,
-                "List Selected",
-                Toast.LENGTH_SHORT
-            ).show()
-            R.id.logout -> Toast.makeText(
-                this@MainActivity,
-                "Logout Selected",
-                Toast.LENGTH_SHORT
-            ).show()
+    private fun startSignIn(email: String, password: String) {
+        if (!validateForm()) {
+            return
         }
-        return false
+        auth = FirebaseAuth.getInstance()
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(
+                        baseContext, "Authentication success.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intent = Intent(this, ListActivity::class.java).apply {
+                        putExtra("EMAIL", email)
+                    }
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
+
+    private fun startSignUp() {
+        val intent: Intent = Intent(this, RegisterActivity::class.java).apply {
+            putExtra("EMAIL", email.text.toString())
+        }
+        startActivity(intent)
+    }
+
+    private fun recovery() {
+        val intent: Intent = Intent(this, RecoveryActivity::class.java).apply {
+            putExtra("EMAIL", email.text.toString())
+        }
+        startActivity(intent)
+    }
+
+    private fun validateForm(): Boolean {
+        var valid = true
+
+        val fieldEmail = email.text.toString()
+        if (TextUtils.isEmpty(fieldEmail)) {
+            email.error = "Required."
+            valid = false
+        } else {
+            email.error = null
+        }
+
+        val fieldPassword = password.text.toString()
+        if (TextUtils.isEmpty(fieldPassword)) {
+            password.error = "Required."
+            valid = false
+        } else {
+            password.error = null
+        }
+
+        return valid
+    }
+
+    override fun onClick(v: View?) {
+        when (v!!.id) {
+            R.id.signIn -> startSignIn(email.text.toString(), password.text.toString())
+            R.id.signUp -> startSignUp()
+            R.id.recovery -> recovery()
+        }
+    }
+
 }
