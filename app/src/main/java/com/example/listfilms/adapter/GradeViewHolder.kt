@@ -9,4 +9,5 @@ import com.example.listfilms.R
 class GradeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var gradeName: TextView = view.findViewById(R.id.grade_name)
     var gradeImage: ImageView = view.findViewById(R.id.grade_image)
+    var gradeId: TextView = view.findViewById(R.id.grade_id)
 }

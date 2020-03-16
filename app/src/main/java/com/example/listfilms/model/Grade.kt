@@ -1,3 +1,3 @@
 package com.example.listfilms.model
 
-data class Grade(val name: String, val imagePath: String)
+data class Grade(val name: String, val imagePath: String, val id: Int)

@@ -32,6 +32,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".ListActivity" />
+        <activity android:name=".DetailActivity" />
     </application>
 
 </manifest>

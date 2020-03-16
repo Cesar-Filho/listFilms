@@ -25,10 +25,11 @@ object MoviesRepository {
     }
 
     fun getMovies(
-        onSuccess: (movies: List<Movie>) -> Unit,
+        page: Int? = 1,
+        onSuccess: (movies: MutableList<Movie>) -> Unit,
         onError: () -> Unit
     ) {
-        api.getMovies()
+        api.getMovies(page)
             .enqueue(object : Callback<GetMoviesResponse> {
                 override fun onResponse(
                     call: Call<GetMoviesResponse>,

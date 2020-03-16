@@ -9,7 +9,7 @@ object MainDataBase {
         if (appDatabase == null) {
             appDatabase = Room.databaseBuilder<AppDatabase>(
                 context!!,
-                AppDatabase::class.java, "database-films"
+                AppDatabase::class.java, "movies"
             ).build()
         }
         return appDatabase

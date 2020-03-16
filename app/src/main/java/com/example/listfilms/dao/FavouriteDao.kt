@@ -10,5 +10,5 @@ interface FavouriteDao: DAO<Favourite> {
     fun list() : List<Favourite>
 
     @Query(value = "Select * from favourites where email = :email")
-    fun byUserId(email: String) : Favourite
+    fun byEmail(email: String) : Favourite? = null
 }

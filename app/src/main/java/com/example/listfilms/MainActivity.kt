@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     val intent = Intent(this, ListActivity::class.java).apply {
                         putExtra("EMAIL", email)
                     }
+                    UserSingleton.setUser(email)
                     startActivity(intent)
                 } else {
                     Toast.makeText(
