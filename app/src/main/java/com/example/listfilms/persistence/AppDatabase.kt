@@ -12,7 +12,7 @@ import com.example.listfilms.model.User
 @Database(entities = [User::class, Favourite::class, Movie::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun movieFavouriteDao(): FavouriteDao
+    abstract fun favouriteDao(): FavouriteDao
     abstract fun userDao(): UserDao
     abstract fun movieDao(): MovieDao
 }

@@ -16,4 +16,7 @@
     <string name="login">Login</string>
     <string name="insert_email">Digite seu e-mail</string>
     <string name="register">Register</string>
+    <string name="add_favourite">Adicionar aos favoritos</string>
+    <string name="remove_favourite">Remover de Favoritos</string>
+    <string name="invalid_parameters">Invalid Parameters</string>
 </resources>

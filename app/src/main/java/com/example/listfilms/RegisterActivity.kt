@@ -20,7 +20,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        email.setText(intent?.getStringExtra("EMAIL"))
+        register_email.setText(intent?.getStringExtra("EMAIL"))
         signUp.setOnClickListener(this)
     }
 
@@ -56,26 +56,26 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private fun validateForm(): Boolean {
         var valid = true
 
-        val fieldEmail = email.text.toString()
+        val fieldEmail = register_email.text.toString()
         if (TextUtils.isEmpty(fieldEmail)) {
-            email.error = "Required."
+            register_email.error = "Required."
             valid = false
         } else {
-            email.error = null
+            register_email.error = null
         }
 
-        val fieldPassword = password.text.toString()
+        val fieldPassword = register_password.text.toString()
         if (TextUtils.isEmpty(fieldPassword)) {
-            password.error = "Required."
+            register_password.error = "Required."
             valid = false
         } else {
-            password.error = null
+            register_password.error = null
         }
 
         return valid
     }
 
     override fun onClick(v: View?) {
-        startSignUp(email.text.toString(), password.text.toString())
+        startSignUp(register_email.text.toString(), register_password.text.toString())
     }
 }

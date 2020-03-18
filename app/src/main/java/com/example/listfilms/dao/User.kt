@@ -7,7 +7,7 @@ import com.example.listfilms.model.User
 @Dao
 interface UserDao: DAO<User> {
     @Query(value = "Select * from users")
-    fun list() : List<User>
+    fun list() : List<User>? = null
 
     @Query(value = "Select * from users where email = :email")
     fun byEmail(email: String) : User

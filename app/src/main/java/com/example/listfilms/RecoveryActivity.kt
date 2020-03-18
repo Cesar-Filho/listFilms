@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_recovery.*
-import kotlinx.android.synthetic.main.activity_recovery.email
 
 class RecoveryActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -17,7 +16,7 @@ class RecoveryActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recovery)
 
-        email.setText(intent?.getStringExtra("EMAIL"))
+        recovery_email.setText(intent?.getStringExtra("EMAIL"))
         recovery.setOnClickListener(this)
     }
 
@@ -46,18 +45,18 @@ class RecoveryActivity : AppCompatActivity(), View.OnClickListener {
     private fun validateForm(): Boolean {
         var valid = true
 
-        val fieldEmail = email.text.toString()
+        val fieldEmail = recovery_email.text.toString()
         if (TextUtils.isEmpty(fieldEmail)) {
-            email.error = "Required."
+            recovery_email.error = "Required."
             valid = false
         } else {
-            email.error = null
+            recovery_email.error = null
         }
 
         return valid
     }
 
     override fun onClick(v: View?) {
-        recovery(email.text.toString())
+        recovery(recovery_email.text.toString())
     }
 }

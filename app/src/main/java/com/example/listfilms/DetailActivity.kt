@@ -1,8 +1,6 @@
 package com.example.listfilms
 
-import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -11,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.listfilms.model.Favourite
 import com.example.listfilms.model.Movie
+import com.example.listfilms.model.User
 import com.example.listfilms.persistence.MainDataBase.getInstance
 import com.example.listfilms.repository.MoviesRepository
 import com.squareup.picasso.Picasso
@@ -23,8 +22,10 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        byId(intent.getStringExtra("ID").toInt())
+
         val buttonDetail = findViewById<Button>(R.id.buttonDetail)
+
+        byId(intent.getStringExtra("ID").toInt())
         getFavourite(buttonDetail)
 
         buttonDetail.setOnClickListener(this)
@@ -37,15 +38,24 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     private fun getFavourite(buttonDetail: Button) {
 
         val appDatabase = getInstance(applicationContext)
-        Log.i("EMAIL", UserSingleton.getUser())
-        val user = appDatabase.userDao()?.byEmail(
+
+        var user = appDatabase.userDao().byEmail(
             UserSingleton.getUser()
         )
-        Log.i("TASK", user?.email.toString())
 
-        buttonDetail.text = "Remover de Favoritos"
+        if (user === null) {
+            appDatabase.userDao().save(User(0, UserSingleton.getUser()))
+            user = appDatabase.userDao().byEmail(
+                UserSingleton.getUser()
+            )
+        }
+
+        val movieId = intent.getStringExtra("ID").toInt()
+        favourite = appDatabase.favouriteDao().byFavourite(user.email, movieId)
+
+        buttonDetail.text = getString(R.string.remove_favourite)
         if (favourite === null) {
-            buttonDetail.text = "Adicionar aos favoritos"
+            buttonDetail.text = getString(R.string.add_favourite)
         }
 
     }
@@ -64,7 +74,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun error() {
-        Toast.makeText(this, "Invalid Parameters", Toast.LENGTH_LONG)
+        Toast.makeText(this, getString(R.string.invalid_parameters), Toast.LENGTH_LONG)
             .show()
     }
 
@@ -75,30 +85,17 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun toggleFavourite() {
-        getFavourite(findViewById(R.id.buttonDetail))
-        Log.i("ToGGLE", favourite?.email.toString())
+        val appDatabase = getInstance(applicationContext)
         if (favourite !== null) {
-            val delete = Runnable {
-                val appDatabase =
-                    getInstance(applicationContext)
-                val favourite =
-                    Favourite(0, UserSingleton.getUser(), intent.getStringExtra("ID").toInt())
-                appDatabase?.movieFavouriteDao()?.remove(favourite)
-            }
-            AsyncTask.execute(delete);
-        } else {
-            val insert = Runnable {
-                val appDatabase =
-                    getInstance(applicationContext)
-                val favourite =
-                    Favourite(0, UserSingleton.getUser(), intent.getStringExtra("ID").toInt())
-                appDatabase?.movieFavouriteDao()?.save(favourite)
-                Log.i("FAVOURITE", favourite.movieId.toString())
-            }
-            AsyncTask.execute(insert);
+            appDatabase.favouriteDao().remove(favourite!!)
             getFavourite(findViewById(R.id.buttonDetail))
+            return
         }
 
+        val favourite = Favourite(0, UserSingleton.getUser(), intent.getStringExtra("ID").toInt())
+        appDatabase.favouriteDao().save(favourite)
+
+        getFavourite(findViewById(R.id.buttonDetail))
     }
 
 }
